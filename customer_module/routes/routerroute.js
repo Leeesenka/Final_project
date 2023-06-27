@@ -24,7 +24,10 @@ const {
 	_checkPfPw
 } = require('../controllers/profiles.js');
 
-
+const {
+	_gettingEngineers,
+	_sendEngineerTicket
+} = require('../controllers/managment_tickets.js');
 
 
 
@@ -42,8 +45,8 @@ router.post('/newticket', _sendNewTickets);
 router.get('/last_login', _checkLastLogin);
 router.get('/all_tickets', _getAllTickets);
 router.get('/all_tickets/:id', _getTicket);
-
-
+router.get('/engineers', _gettingEngineers);
+router.post('/saveticket', _sendEngineerTicket);
 module.exports = {
 	router
 }

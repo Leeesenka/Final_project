@@ -10,11 +10,12 @@
 </head>
 <body>
     <div class="container">
-        <table class="table table-secondary">
+        <form id="ticketForm">
+        <table  class="table">
             <thead>
-                <tr class="table-primary">
-                    <th>Field</th>
-                    <th>Data</th>
+                <tr>
+                    <th class="table-success">Field</th>
+                    <th class="table-success">Data</th>
                 </tr>
             </thead>
             <tbody>
@@ -52,14 +53,23 @@
                 </tr>
                 <tr>
                     <th>Engineers:</th>
-                    <td id="Engineers"></td>
+                    <td id="Engineers">
+                        <select id="engineers"  class="form-select" aria-label="Default select example">
+                          <option>Choose an engineer</option>
+                        </select>
+                      </td>
+                      
                 </tr>
                 <tr>
                     <th>Additional information:</th>
-                    <td id="additional_information"></td>
+                    <td id="additional_informations">
+                    <input  id="additional_information" class="form-control" type="text" value="" aria-label="">
+                    </td>
                 </tr>
             </tbody>
-        </table>
+     </table>
+     <button id="saveButton" class="btn btn-primary" type="submit">Save</button>
+  </form>
     </div>
     <script src='description.js'></script>
 </body>
