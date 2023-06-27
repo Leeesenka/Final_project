@@ -14,10 +14,18 @@
             <p>Login:</p>
             <form action="" method="post" name="login" id="login1">
               <div id="log_fields">
-                <!-- Login fields will be inserted here -->
+                <div class="field_div">
+                    <label for="username" class="label_log">Username:</label>
+                    <input type="text" name="username" class="input_log" oninput="listenLogin(event)">
+                </div>
+                <div class="field_div">
+                    <label for="password" class="label_log">Password:</label>
+                    <input type="password" name="password" class="input_log" oninput="listenLogin(event)">
+                </div>
               </div>
               <input name="button" type="submit" value="Login" disabled onclick="clickOnLogin(event)"></input>
             </form>
+            <button id="logoutButton">Log Out</button>
             <div id="info_block_l">
               <!-- Information block for displaying login-related messages -->
             </div>
@@ -29,6 +37,6 @@
 
 
 	</div>
-	<script src="script_login.js"></script>
+	<script src="script_login.js" ></script>
 </body>
 </html>

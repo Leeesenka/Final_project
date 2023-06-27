@@ -18,7 +18,7 @@ const insertProfile = (profile) => {
 	return db('register')
 	.insert(profile)
 	.returning('*')
-	// return {"sss":"123","ddd":"456"}
+
 }
 
 const updateProfile = (id, profile) => {

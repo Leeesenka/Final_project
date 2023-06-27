@@ -2,7 +2,8 @@ const bcrypt = require('bcrypt');
 const {
 	checkLogin,
 	addLoginInfo,
-	allLoginsOfUser
+	allLoginsOfUser,
+	checkLastLogin
 } = require('../modules/login.js')
 
 const {
@@ -36,7 +37,7 @@ const _checkLogin = async (req, res) => {
 				} else {
 					// Выводим алерт, если пароль неверный
 					const errorMsg = "Username and password combination is not correct";
-					res.json({
+					res.status(404).json({
 						ok: false,
 						msg: errorMsg,
 						alert: errorMsg
@@ -44,7 +45,7 @@ const _checkLogin = async (req, res) => {
 				}
 			} else if (data.length === 0) {
 				const errorMsg = "The user with this login is not registered. Please register first.";
-				res.json({
+				res.status(404).json({
 					ok: false,
 					msg: errorMsg,
 					alert: errorMsg
@@ -111,7 +112,20 @@ const _allLoginsOfUser = async (req, res) => {
 		})
 }
 
+const _checkLastLogin = (req,res) => {
+    checkLastLogin()
+    .then(data => {
+        res.json(data)
+        
+    })
+    .catch(err=>{
+        console.log(err);
+        res.status(404).json({msg:err.message})
+    })
+}    
+
 module.exports = {
 	_checkLogin,
-	_allLoginsOfUser
+	_allLoginsOfUser,
+	_checkLastLogin
 }

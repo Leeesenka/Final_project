@@ -6,7 +6,15 @@ const checkLogin = (username) => {
 	.select('id', 'first_name', 'last_name', 'email', 'username', 'password', 'created_date', 'last_login_date')
 	.where({username})
 }
-
+const checkLastLogin = () => {
+	return db('login')
+	.select("*")
+	.orderBy('id', 'desc')
+	.first();
+  };
+  
+  
+  
 const allLoginsOfUser = (id) => {
 	return db('login')
 	.select ('username', 'password', 'last_login_date')
@@ -27,5 +35,6 @@ const addLoginInfo = (data) => {
 module.exports = {
 	checkLogin,
 	addLoginInfo,
-	allLoginsOfUser
+	allLoginsOfUser,
+	checkLastLogin
 }

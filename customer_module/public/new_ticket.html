@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>New_ticket</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel='stylesheet' type='text/css' media='screen' href='new_ticket.css'>
+
+</head>
+<body>
+    <div class="main">
+        <form action="" method="post" name="new" id="new">
+            <h3 for="client" id="client">Welcome, <span id="username"></span>!</h3>
+            <label for="subject">Subject:</label>
+            <select id="subject" class="form-select" aria-label="Default select example">
+                <option selected>Open this select menu</option>
+  
+            </select>
+            <label for="equipment">Equipment:</label>
+            <select id="equipment" class="form-select" aria-label="Default select example">
+                <option selected>Open this select menu</option>
+            </select>
+            <p for="serial_number" id="	serial_number">Serial Number: <span id="number"></span></p>
+
+            <label for="criticality">Criticality:</label>
+            <select id="criticality" class="form-select" aria-label="Default select example">
+                <option selected>Open this select menu</option>
+            </select>
+            <p for="hour" id="hours_criticality">Hours: <span id="hours"></span></p>
+
+            <div class="mb-3">
+                <label for="Description" class="form-label">Description</label>
+                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+             </div>
+           
+             <button type="submit">Send</button>   
+        </form>
+        <button id="createTicketButton">All tickets</button>
+
+    </div>
+
+    <script src='new_ticket.js' ></script>
+</body>
+</html>

@@ -1,0 +1,11 @@
+#new {
+    display: flex;
+    position: relative;
+    flex-direction: column;
+    width: 200px;
+}
+
+button {
+    width: 57px;
+    height: 35px;
+}

@@ -88,7 +88,7 @@ async function clickOnRegistry(e) {
 	};
 
 	try {
-		const res = await fetch("/api/profiles", requestData);
+		const res = await fetch("/profiles", requestData);
 		if (res.status === 200) {
 			const resInfo = await res.json();
 			console.log('Ok result', resInfo[0]);

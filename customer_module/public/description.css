@@ -1,0 +1,22 @@
+
+.ticket-table {
+    display: grid;
+    grid-template-columns: 350px 1fr;
+    grid-gap: 10px;
+}
+
+.ticket-table > div {
+    border: 1px solid #ccc;
+    padding: 10px;
+}
+
+.ticket-table h2,
+.ticket-table h3 {
+    margin: 0;
+}
+
+.container {
+    display: flex;
+    position: relative;
+    flex-direction: row;
+}
