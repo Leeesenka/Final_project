@@ -6,11 +6,14 @@
     <title>Description</title>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
     <link rel='stylesheet' type='text/css' media='screen' href='description.css'>
+    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css">
 </head>
 <body>
     <div class="container">
+        <div id="successMessage" style="display: none;"></div>
         <form id="ticketForm">
+
         <table  class="table">
             <thead>
                 <tr>
@@ -66,11 +69,19 @@
                     <input  id="additional_information" class="form-control" type="text" value="" aria-label="">
                     </td>
                 </tr>
+                <tr>
+                    <th>Date of change:</th>
+                    <td id="date_of_change"></td>
+                </tr>
             </tbody>
      </table>
+     <button id="sandButton" class="btn btn-primary" type="submit">Sand</button>
      <button id="saveButton" class="btn btn-primary" type="submit">Save</button>
+     <input type="hidden" id="ticketIdInput" value="${ticketData.id}" />
   </form>
     </div>
+
     <script src='description.js'></script>
+
 </body>
 </html>

@@ -19,14 +19,19 @@ const getTicketDetails = async () => {
 };
 
 const populateTable = (ticketData) => {
-  document.getElementById('subject').textContent = ticketData.subject;
-  document.getElementById('created-at').textContent = ticketData.created_at;
-  document.getElementById('client').textContent = ticketData.client;
-  document.getElementById('equipment-name').textContent = ticketData.equipment_name;
-  document.getElementById('serial-number').textContent = ticketData.serial_number;
-  document.getElementById('criticality-name').textContent = ticketData.criticality_name;
-  document.getElementById('hours').textContent = ticketData.hours;
-  document.getElementById('description').textContent = ticketData.description;
+  const createdAtDate = new Date(ticketData.created_at);
+  const createdAtFormatted = createdAtDate.toLocaleString();
+
+  document.getElementById('subject').innerHTML = `<input type="text" id="subjectInput" value="${ticketData.subject}" />`;
+  document.getElementById('created-at').innerHTML = `<input type="text" id="createdAtInput" value="${createdAtFormatted}" />`;
+  document.getElementById('client').innerHTML = `<input type="text" id="clientInput" value="${ticketData.client}" readonly/>`;
+  document.getElementById('equipment-name').innerHTML = `<input type="text" id="equipmentNameInput" value="${ticketData.equipment_name}" />`;
+  document.getElementById('serial-number').innerHTML = `<input type="text" id="serialNumberInput" value="${ticketData.serial_number}" />`;
+  document.getElementById('criticality-name').innerHTML = `<input type="text" id="criticalityNameInput" value="${ticketData.criticality_name}" />`;
+  document.getElementById('hours').innerHTML = `<input type="text" id="hoursInput" value="${ticketData.hours}" />`;
+  document.getElementById('description').innerHTML = `<textarea id="descriptionInput">${ticketData.description}</textarea>`;
+  document.getElementById('date_of_change').innerHTML = `<input type="text" id="date_of_changeInput" value="${ticketData.date_of_change}" readonly/>`;  // Set the ticket ID input field value
+  document.getElementById('ticketIdInput').value = ticketData.id;
 };
 
 const selectEngineers = document.getElementById('engineers');
@@ -39,7 +44,7 @@ const getEngineers = async () => {
     if (data && data.length > 0) {
       data.forEach((engineer) => {
         const option = document.createElement('option');
-        option.text = engineer.name; 
+        option.text = engineer.name;
         selectEngineers.appendChild(option);
       });
     }
@@ -52,17 +57,81 @@ getEngineers();
 getTicketDetails();
 
 const saveButton = document.getElementById('saveButton');
-const ticketForm = document.getElementById('ticketForm');
+const sendButton = document.getElementById('sendButton');
+const formatDate = (date) => {
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, '0');
+  const day = String(date.getDate()).padStart(2, '0');
+  const hours = String(date.getHours()).padStart(2, '0');
+  const minutes = String(date.getMinutes()).padStart(2, '0');
+  const seconds = String(date.getSeconds()).padStart(2, '0');
 
-const saveTicket = async () => {
-  const subjectValue = document.getElementById('subject').textContent;
-  const createdAtValue = document.getElementById('created-at').textContent;
-  const clientValue = document.getElementById('client').textContent;
-  const equipmentNameValue = document.getElementById('equipment-name').textContent;
-  const serialNumberValue = document.getElementById('serial-number').textContent;
-  const criticalityNameValue = document.getElementById('criticality-name').textContent;
-  const hoursValue = document.getElementById('hours').textContent;
-  const descriptionValue = document.getElementById('description').textContent;
+  return `${year}-${month}-${day}T${hours}:${minutes}:${seconds}`;
+};
+const saveTicket = async (event) => {
+  event.preventDefault();
+
+  const subjectValue = document.getElementById('subjectInput').value;
+  const createdAtValue = document.getElementById('createdAtInput').value;
+  const clientValue = document.getElementById('clientInput').value;
+  const equipmentNameValue = document.getElementById('equipmentNameInput').value;
+  const serialNumberValue = document.getElementById('serialNumberInput').value;
+  const criticalityNameValue = document.getElementById('criticalityNameInput').value;
+  const hoursValue = document.getElementById('hoursInput').value;
+  const descriptionValue = document.getElementById('descriptionInput').value;
+  const engineerValue = selectEngineers.value;
+  const additionalInformationValue = document.getElementById('additional_information').value;
+  const currentDate = new Date();
+  const dateOfChangeValue = formatDate(currentDate);
+
+  const formData = {
+    subject: subjectValue,
+    created_at: createdAtValue,
+    client: clientValue,
+    equipment_name: equipmentNameValue,
+    serial_number: serialNumberValue,
+    criticality_name: criticalityNameValue,
+    hours: hoursValue,
+    description: descriptionValue,
+    engineer: engineerValue,
+    additional_information: additionalInformationValue,
+    date_of_change: dateOfChangeValue,
+  };
+
+  try {
+    const ticketId = document.getElementById('ticketIdInput').value;
+    formData.id = ticketId;
+    const response = await fetch(`http://127.0.0.1:3030/saveticket/${ticketId}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(formData),
+    });
+
+    if (response.ok) {
+      console.log('Ticket saved successfully');
+      alert('Ticket has been updated.');
+    } else {
+      console.error('Error:', response.status);
+      alert('Error updating ticket!');
+    }
+  } catch (error) {
+    console.error('Error:', error);
+    alert('Error sending data!');
+  }
+};
+
+
+const sendTicket = () => {
+  const subjectValue = document.getElementById('subjectInput').value;
+  const createdAtValue = document.getElementById('createdAtInput').value;
+  const clientValue = document.getElementById('clientInput').value;
+  const equipmentNameValue = document.getElementById('equipmentNameInput').value;
+  const serialNumberValue = document.getElementById('serialNumberInput').value;
+  const criticalityNameValue = document.getElementById('criticalityNameInput').value;
+  const hoursValue = document.getElementById('hoursInput').value;
+  const descriptionValue = document.getElementById('descriptionInput').value;
   const engineerValue = selectEngineers.value;
   const additionalInformationValue = document.getElementById('additional_information').value;
 
@@ -79,23 +148,21 @@ const saveTicket = async () => {
     additional_information: additionalInformationValue,
   };
 
-  try {
-    const response = await fetch('http://127.0.0.1:3030/saveticket', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(formData),
-    });
+  const jsonData = JSON.stringify(formData, null, 2);
+  const blob = new Blob([jsonData], { type: 'application/json' });
+  const anchorElement = document.createElement('a');
+  anchorElement.href = URL.createObjectURL(blob);
+  anchorElement.download = 'ticketData.json';
+  anchorElement.style.display = 'none';
 
-    if (response.ok) {
-      console.log('Ticket saved successfully');
-    } else {
-      console.error('Error:', response.status);
-    }
-  } catch (error) {
-    console.error('Error:', error);
-  }
+  document.body.appendChild(anchorElement);
+  anchorElement.click();
+
+  document.body.removeChild(anchorElement);
+
+  console.log('Ticket data saved successfully');
+  alert('Ticket data has been saved to ticketData.json.');
 };
 
 saveButton.addEventListener('click', saveTicket);
+sendButton.addEventListener('click', sendTicket);

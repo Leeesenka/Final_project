@@ -19,19 +19,19 @@ const gettingDataCriticality = () => {
 };  
 
 const sendNewTickets = (ticket) =>{
-  return db('newticket')
+  return db('managerticket')
   .insert(ticket)
   .returning('*');
 }
 
 const getAllTickets = () => {
-  return db('newticket')
-  .select('*')
+  return db('managerticket')
+  .select('id', 'client', 'created_at', 'subject', 'equipment_name', 'serial_number', 'criticality_name', 'hours', 'description','engineer','additional_information', 'completion_date', 'date_of_change')
   .orderBy('id')
 }
 
 const getTicket = (ticket_id)=> {
-  return db('newticket')
+  return db('managerticket')
   .select('*')
   .where({id:ticket_id})
 }

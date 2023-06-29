@@ -26,7 +26,8 @@ const {
 
 const {
 	_gettingEngineers,
-	_sendEngineerTicket
+	_sendEngineerTicket,
+	_updateTicketId
 } = require('../controllers/managment_tickets.js');
 
 
@@ -47,6 +48,7 @@ router.get('/all_tickets', _getAllTickets);
 router.get('/all_tickets/:id', _getTicket);
 router.get('/engineers', _gettingEngineers);
 router.post('/saveticket', _sendEngineerTicket);
+router.put('/saveticket/:id', _updateTicketId)
 module.exports = {
 	router
 }
