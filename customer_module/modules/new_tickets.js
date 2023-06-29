@@ -1,5 +1,6 @@
 const{db} = require('../config/db.js')
 
+
 const gettingDataSubject = () => {
     return db('subject')
     .select('id', 'name')
@@ -29,6 +30,13 @@ const getAllTickets = () => {
   .select('id', 'client', 'created_at', 'subject', 'equipment_name', 'serial_number', 'criticality_name', 'hours', 'description','engineer','additional_information', 'completion_date', 'date_of_change')
   .orderBy('id')
 }
+const getClientTickets = (client) => {
+  return db('managerticket')
+  .select('id', 'client', 'created_at', 'subject', 'equipment_name', 'serial_number', 'criticality_name', 'hours', 'description', 'completion_date', )
+  .where({client:client})
+
+}
+
 
 const getTicket = (ticket_id)=> {
   return db('managerticket')
@@ -43,5 +51,6 @@ module.exports = {
     sendNewTickets,
     getAllTickets,
     getTicket,
+    getClientTickets
 }  
 

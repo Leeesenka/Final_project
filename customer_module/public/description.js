@@ -11,6 +11,7 @@ const getTicketDetails = async () => {
 
       if (data && data.length > 0) {
         populateTable(data[0]);
+        await getClientInfo(data[0].user_id);
       }
     }
   } catch (error) {
@@ -25,7 +26,9 @@ const populateTable = (ticketData) => {
   document.getElementById('subject').innerHTML = `<input type="text" id="subjectInput" value="${ticketData.subject}" />`;
   document.getElementById('created-at').innerHTML = `<input type="text" id="createdAtInput" value="${createdAtFormatted}" />`;
   document.getElementById('client').innerHTML = `<input type="text" id="clientInput" value="${ticketData.client}" readonly/>`;
+  document.getElementById('adress').innerHTML = `<input type="text" id="adressInput" value="${ticketData.adress}" />`;
   document.getElementById('equipment-name').innerHTML = `<input type="text" id="equipmentNameInput" value="${ticketData.equipment_name}" />`;
+
   document.getElementById('serial-number').innerHTML = `<input type="text" id="serialNumberInput" value="${ticketData.serial_number}" />`;
   document.getElementById('criticality-name').innerHTML = `<input type="text" id="criticalityNameInput" value="${ticketData.criticality_name}" />`;
   document.getElementById('hours').innerHTML = `<input type="text" id="hoursInput" value="${ticketData.hours}" />`;
@@ -56,6 +59,20 @@ const getEngineers = async () => {
 getEngineers();
 getTicketDetails();
 
+const getClientInfo = async (userId) => {
+  try {
+    const response = await fetch(`http://127.0.0.1:3030/client_adress/${userId}`);
+    const data = await response.json();
+   console.log(data)
+    if (data && data[0].address) {
+      document.getElementById('adressInput').value = data[0].address;
+    // Set the client address value
+    }
+  } catch (error) {
+    console.error('Error:', error);
+  }
+};
+
 const saveButton = document.getElementById('saveButton');
 const sendButton = document.getElementById('sendButton');
 const formatDate = (date) => {
@@ -74,6 +91,7 @@ const saveTicket = async (event) => {
   const subjectValue = document.getElementById('subjectInput').value;
   const createdAtValue = document.getElementById('createdAtInput').value;
   const clientValue = document.getElementById('clientInput').value;
+  const adressValue = document.getElementById('adressInput').value;
   const equipmentNameValue = document.getElementById('equipmentNameInput').value;
   const serialNumberValue = document.getElementById('serialNumberInput').value;
   const criticalityNameValue = document.getElementById('criticalityNameInput').value;
@@ -88,6 +106,7 @@ const saveTicket = async (event) => {
     subject: subjectValue,
     created_at: createdAtValue,
     client: clientValue,
+    adress: adressValue,
     equipment_name: equipmentNameValue,
     serial_number: serialNumberValue,
     criticality_name: criticalityNameValue,
@@ -127,6 +146,7 @@ const sendTicket = () => {
   const subjectValue = document.getElementById('subjectInput').value;
   const createdAtValue = document.getElementById('createdAtInput').value;
   const clientValue = document.getElementById('clientInput').value;
+  const adressValue = document.getElementById('adressInput').value;
   const equipmentNameValue = document.getElementById('equipmentNameInput').value;
   const serialNumberValue = document.getElementById('serialNumberInput').value;
   const criticalityNameValue = document.getElementById('criticalityNameInput').value;
@@ -139,6 +159,7 @@ const sendTicket = () => {
     subject: subjectValue,
     created_at: createdAtValue,
     client: clientValue,
+    adress: adressValue,
     equipment_name: equipmentNameValue,
     serial_number: serialNumberValue,
     criticality_name: criticalityNameValue,

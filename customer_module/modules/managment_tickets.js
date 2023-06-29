@@ -12,6 +12,7 @@ const sendEngineerTicket = (ticket) =>{
     .returning('*');
   } 
 
+  
   // const updateTicketId = (id, ticket) =>{
   //   return db('managerticket')
   //   .where({id})
@@ -48,8 +49,15 @@ const sendEngineerTicket = (ticket) =>{
         .returning('*');
 };
 
+const gettingAdress = (user_id) => {
+  return db('client_info')
+  .select('user_id', 'address', 'phone', 'contact_person' )
+  .where({user_id:user_id})
+};
+
 module.exports = {
     gettingEngineers,
     sendEngineerTicket,
     updateTicketId,
+    gettingAdress
 }    

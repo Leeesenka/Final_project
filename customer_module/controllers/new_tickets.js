@@ -6,6 +6,7 @@ const {
     sendNewTickets,
     getAllTickets,
     getTicket,
+    getClientTickets
 } = require('../modules/new_tickets.js');
 
 
@@ -72,6 +73,18 @@ const _getAllTickets = (req,res) => {
     })
 } 
 
+const _getClientTickets = (req,res) => {
+    const client = req.params.client
+    getClientTickets(client)
+    .then(data => {
+            res.json(data)
+    })
+        .catch(err=>{
+        console.log(err);
+            res.status(404).json({msg:err.message})
+    })
+        }
+
 const _getTicket = (req,res) => {
     const id = req.params.id
     getTicket(id)
@@ -91,4 +104,5 @@ module.exports = {
     _sendNewTickets,
     _getAllTickets,
     _getTicket,
+    _getClientTickets,
 }

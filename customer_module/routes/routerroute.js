@@ -13,7 +13,8 @@ const {
 	_gettingDataCriticality,
 	_sendNewTickets,
 	_getAllTickets,
-	_getTicket
+	_getTicket,
+	_getClientTickets
 } = require('../controllers/new_tickets.js');
 
 const {
@@ -27,7 +28,8 @@ const {
 const {
 	_gettingEngineers,
 	_sendEngineerTicket,
-	_updateTicketId
+	_updateTicketId,
+	_gettingAdress
 } = require('../controllers/managment_tickets.js');
 
 
@@ -48,7 +50,9 @@ router.get('/all_tickets', _getAllTickets);
 router.get('/all_tickets/:id', _getTicket);
 router.get('/engineers', _gettingEngineers);
 router.post('/saveticket', _sendEngineerTicket);
-router.put('/saveticket/:id', _updateTicketId)
+router.put('/saveticket/:id', _updateTicketId);
+router.get('/client_adress/:id', _gettingAdress);
+router.get('/client_tickets/:client', _getClientTickets);
 module.exports = {
 	router
 }

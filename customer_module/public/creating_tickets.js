@@ -1,21 +1,22 @@
-
 const newTicketButton = document.getElementById('new_ticket');
 
 newTicketButton.addEventListener('click', () => {
-
   window.location.href = 'new_ticket.html';
 });
-
 
 const ticketTable = document.getElementById('ticketTable');
 
 const getAllTickets = async () => {
   try {
-    const response = await fetch('http://localhost:3030/all_tickets');
+    const clientName = "Anna";
+    const response = await fetch(`http://localhost:3030/client_tickets/${clientName}`);
     const data = await response.json();
 
     if (data && data.length > 0) {
       populateTable(data);
+    } else {
+      // Обработка случая, когда данные пусты
+      // Например, можно вывести сообщение "Нет доступных билетов"
     }
   } catch (error) {
     console.error('Error:', error);
