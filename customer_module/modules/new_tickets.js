@@ -27,9 +27,30 @@ const sendNewTickets = (ticket) =>{
 
 const getAllTickets = () => {
   return db('managerticket')
-  .select('id', 'client', 'created_at', 'subject', 'equipment_name', 'serial_number', 'criticality_name', 'hours', 'description','engineer','additional_information', 'completion_date', 'date_of_change')
-  .orderBy('id')
-}
+    .leftJoin('engineer', 'managerticket.engineer_id', '=', 'engineer.id')
+    .select( 
+      'managerticket.id',
+      'managerticket.client',
+      'managerticket.created_at',
+      'managerticket.subject',
+      'managerticket.equipment_name',
+      'managerticket.criticality_name',
+      'engineer.name AS engineer_name',
+      'engineer.chat_id AS engineer_chat_id',
+      'managerticket.completion_date',
+      'managerticket.date_of_change',
+      'managerticket.start_date'
+    )
+    .returning('*')
+    .orderBy('managerticket.id');
+};
+
+
+
+
+
+
+
 const getClientTickets = (client) => {
   return db('managerticket')
   .select('id', 'client', 'created_at', 'subject', 'equipment_name', 'serial_number', 'criticality_name', 'hours', 'description', 'completion_date', )

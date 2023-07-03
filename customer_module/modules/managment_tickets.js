@@ -2,7 +2,7 @@ const{db} = require('../config/db.js')
 
 const gettingEngineers = () => {
     return db('engineer')
-    .select('id', 'name', 'specialization', 'contact_number', 'email', 'department' )
+    .select('id', 'name', 'specialization', 'contact_number', 'email', 'department', 'chat_id' )
     .orderBy('name')
   };
  
@@ -28,9 +28,10 @@ const sendEngineerTicket = (ticket) =>{
         criticality_name,
         hours,
         description,
-        completion_date,
+       
+        additional_information,
         date_of_change,
-        engineer
+        engineer_id
     } = ticket;
 
     return db('managerticket')
@@ -42,11 +43,39 @@ const sendEngineerTicket = (ticket) =>{
             criticality_name,
             hours,
             description,
-            completion_date,
+            
+            additional_information,
             date_of_change,
-            engineer
+            engineer_id
         })
         .returning('*');
+};
+
+const updateTicketBot = (id, ticket) => {
+  const {
+      completion_date,
+   
+  } = ticket;
+
+  return db('managerticket')
+      .where({ id })
+      .update({
+          completion_date,
+      })
+      .returning('*');
+};
+const updateTicketBotStart = (id, ticket) => {
+  const {
+    start_date,
+   
+  } = ticket;
+
+  return db('managerticket')
+      .where({ id })
+      .update({
+        start_date,
+      })
+      .returning('*');
 };
 
 const gettingAdress = (user_id) => {
@@ -55,9 +84,34 @@ const gettingAdress = (user_id) => {
   .where({user_id:user_id})
 };
 
+const searchTicket = (client) => {
+  return db('managerticket')
+    .select('*')
+    .whereRaw('LOWER(client) LIKE ?', `${client.toLowerCase()}%`)
+    .returning('*');
+}
+const searchTicketData = (createdAt) => {
+  return db('managerticket')
+  .select('*')
+  .whereRaw('LOWER(created_at::text) LIKE ?', `${createdAt.toLowerCase()}%`)
+  .returning('*');
+};
+
+const deleteTicket = (id) => {
+  return db('managerticket')
+  .where({id})
+  .del()
+  .returning('*')
+}
+
 module.exports = {
     gettingEngineers,
     sendEngineerTicket,
     updateTicketId,
-    gettingAdress
+    gettingAdress,
+    updateTicketBot,
+    updateTicketBotStart,
+    searchTicket,
+    deleteTicket,
+    searchTicketData
 }    

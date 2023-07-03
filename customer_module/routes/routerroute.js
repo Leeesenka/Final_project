@@ -29,7 +29,12 @@ const {
 	_gettingEngineers,
 	_sendEngineerTicket,
 	_updateTicketId,
-	_gettingAdress
+	_gettingAdress,
+	_updateTicketBot,
+	_updateTicketBotStart,
+	_searchTicket,
+	_deleteTicket,
+	_searchTicketData
 } = require('../controllers/managment_tickets.js');
 
 
@@ -53,6 +58,12 @@ router.post('/saveticket', _sendEngineerTicket);
 router.put('/saveticket/:id', _updateTicketId);
 router.get('/client_adress/:id', _gettingAdress);
 router.get('/client_tickets/:client', _getClientTickets);
+router.put('/update_completion_date/:id', _updateTicketBot);
+router.put('/update_start_date/:id', _updateTicketBotStart);
+router.get('/search_ticket/', _searchTicket);
+router.delete('/all_tickets/:id', _deleteTicket)
+router.get('/search_ticketdata/', _searchTicketData);
+
 module.exports = {
 	router
 }

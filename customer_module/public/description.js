@@ -39,6 +39,21 @@ const populateTable = (ticketData) => {
 
 const selectEngineers = document.getElementById('engineers');
 
+const ENGINEER_STORAGE_KEY = 'selected_engineer';
+
+// Функция для сохранения выбранного инженера в локальное хранилище
+const saveSelectedEngineer = (engineerValue) => {
+  localStorage.setItem(ENGINEER_STORAGE_KEY, engineerValue);
+};
+
+// Функция для восстановления выбранного инженера из локального хранилища
+const restoreSelectedEngineer = () => {
+  const selectedEngineer = localStorage.getItem(ENGINEER_STORAGE_KEY);
+  if (selectedEngineer) {
+    selectEngineers.value = selectedEngineer;
+  }
+};
+
 const getEngineers = async () => {
   try {
     const response = await fetch('http://localhost:3030/engineers');
@@ -51,10 +66,20 @@ const getEngineers = async () => {
         selectEngineers.appendChild(option);
       });
     }
+    // Восстановление выбранного инженера после загрузки данных
+    restoreSelectedEngineer();
   } catch (error) {
     console.error('Error:', error);
   }
 };
+
+// Обработчик события выбора инженера
+selectEngineers.addEventListener('change', (event) => {
+  const selectedEngineer = event.target.value;
+  // Сохранение выбранного инженера в локальное хранилище
+  saveSelectedEngineer(selectedEngineer);
+});
+
 
 getEngineers();
 getTicketDetails();

@@ -1,0 +1,48 @@
+.main {
+    background-color: #F0F8FF;
+    display: flex;
+    position: relative;
+    flex-direction: column;
+    align-items: center;
+    margin: 20px;
+
+}
+body{
+    background-color: #F0F8FF;
+}
+
+/* #root {
+ 
+    display: flex;
+    position: relative;
+    flex-direction: row;
+    justify-content: center;
+    background-color: #F0F8FF;
+} */
+
+#create-button{
+    margin-top: 20px;
+}
+
+.serial-number {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    font-size: 19px;
+}
+.criticality span{
+    margin-top: 20px;
+    margin-bottom: 20px;
+    font-size: 19px;
+
+}
+
+.form-label {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    font-size: 19px;
+}
+#username {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    font-size: 30px;
+}

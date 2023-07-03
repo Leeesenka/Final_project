@@ -1,0 +1,165 @@
+package main
+
+import (
+	"encoding/json"
+	"io"
+	"log"
+	"net/http"
+	"strconv"
+	"time"
+
+	tgbotapi "github.com/go-telegram-bot-api/telegram-bot-api"
+)
+
+const (
+	botToken     = "5616686460:AAEfCgQK5aPRkS_oOy4yeC8x_buZ807t5gM"
+	operatorChat = 68020168
+	engineerChat = 173086
+)
+
+type Ticket struct {
+	ID                   string    `json:"id"`
+	Subject              string    `json:"subject"`
+	CreatedAt            time.Time `json:"created_at"`
+	Client               string    `json:"client"`
+	EquipmentName        string    `json:"equipment_name"`
+	SerialNumber         string    `json:"serial_number"`
+	CriticalityName      string    `json:"criticality_name"`
+	Hours                string    `json:"hours"`
+	Description          string    `json:"description"`
+	Engineer             string    `json:"engineer"`
+	AdditionalInformation string   `json:"additional_information"`
+}
+
+func main() {
+	bot, err := tgbotapi.NewBotAPI(botToken)
+	if err != nil {
+		log.Panic(err)
+	}
+
+	bot.Debug = true
+
+	log.Printf("Authorized on account %s", bot.Self.UserName)
+
+	http.HandleFunc("/new-ticket", func(w http.ResponseWriter, r *http.Request) {
+		body, err := io.ReadAll(r.Body)
+		if err != nil {
+			http.Error(w, "Failed to read request body", http.StatusBadRequest)
+			return
+		}
+
+		var ticket Ticket
+		err = json.Unmarshal(body, &ticket)
+		if err != nil {
+			http.Error(w, "Failed to parse JSON", http.StatusBadRequest)
+			return
+		}
+
+		// Make a request to get the chat ID of the engineer
+		// Replace with the actual URL and handle the response
+		resp, err := http.Get("http://example.com/api/get-chat-id/" + ticket.Engineer)
+		if err != nil {
+			http.Error(w, "Failed to get chat ID", http.StatusInternalServerError)
+			return
+		}
+		defer resp.Body.Close()
+
+		chatIDBytes, err := io.ReadAll(resp.Body)
+		if err != nil {
+			http.Error(w, "Failed to read chat ID", http.StatusInternalServerError)
+			return
+		}
+
+		chatID, err := strconv.ParseInt(string(chatIDBytes), 10, 64)
+		if err != nil {
+			http.Error(w, "Failed to parse chat ID", http.StatusInternalServerError)
+			return
+		}
+
+		messageText := "New ticket:\n" +
+			"ID: " + ticket.ID + "\n" +
+			"Subject: " + ticket.Subject + "\n" +
+			"Created At: " + ticket.CreatedAt.String() + "\n" +
+			"Client: " + ticket.Client + "\n" +
+			"Equipment Name: " + ticket.EquipmentName + "\n" +
+			"Serial Number: " + ticket.SerialNumber + "\n" +
+			"Criticality Name: " + ticket.CriticalityName + "\n" +
+			"Hours: " + ticket.Hours + "\n" +
+			"Description: " + ticket.Description + "\n" +
+			"Additional Information: " + ticket.AdditionalInformation
+
+		msg := tgbotapi.NewMessage(chatID, messageText)
+		msg.ReplyMarkup = tgbotapi.NewInlineKeyboardMarkup(
+			tgbotapi.NewInlineKeyboardRow(
+				tgbotapi.NewInlineKeyboardButtonData("Took the ticket", "TookTicket"),
+				tgbotapi.NewInlineKeyboardButtonData("Finished", "Finished"),
+			),
+		)
+		if _, err := bot.Send(msg); err != nil {
+			log.Panic(err)
+		}
+	})
+
+	log.Fatal(http.ListenAndServe(":8080", nil))
+
+
+	// msg := tgbotapi.NewMessage(engineerChat, "Hello, engineer!")
+	// msg.ParseMode = "markdown"
+	// _, err = bot.Send(msg)
+	u := tgbotapi.NewUpdate(0)
+	u.Timeout = 60
+
+	updates, err := bot.GetUpdatesChan(u)
+	if err != nil {
+		log.Panic(err)
+	}
+
+	for update := range updates {
+		if update.Message == nil { // we're only interested in messages, ignore other updates
+			continue
+		}
+
+		msg := tgbotapi.NewMessage(update.Message.Chat.ID, "Choose an action:")
+		msg.ReplyMarkup = tgbotapi.NewInlineKeyboardMarkup(
+			tgbotapi.NewInlineKeyboardRow(
+				tgbotapi.NewInlineKeyboardButtonData("Took the ticket", "TookTicket"),
+				tgbotapi.NewInlineKeyboardButtonData("Finished", "Finished"),
+			),
+		)
+
+		if _, err := bot.Send(msg); err != nil {
+			log.Panic(err)
+		}
+	}
+
+	for update := range updates {
+		if update.CallbackQuery != nil {
+			switch update.CallbackQuery.Data {
+			case "TookTicket":
+				// Make a HTTP request
+				// replace with your actual API URL
+				_, err := http.Get("http://example.com/api/took-ticket")
+				if err != nil {
+					log.Panic(err)
+				}
+				msg := tgbotapi.NewMessage(update.CallbackQuery.Message.Chat.ID, "You took the ticket")
+				if _, err := bot.Send(msg); err != nil {
+					log.Panic(err)
+				}
+			case "Finished":
+				// Make a HTTP request
+				// replace with your actual API URL
+				_, err := http.Get("http://example.com/api/finished")
+				if err != nil {
+					log.Panic(err)
+				}
+				msg := tgbotapi.NewMessage(update.CallbackQuery.Message.Chat.ID, "You finished")
+				if _, err := bot.Send(msg); err != nil {
+					log.Panic(err)
+				}
+			}
+
+			continue
+		}
+	}
+}
