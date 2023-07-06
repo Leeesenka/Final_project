@@ -67,7 +67,7 @@ const SaveTicketButton = ({
 
   return (
     <div>
-      <button className="btn btn-primary" id="saveButton" type="submit" onClick={saveTicket}>
+      <button  id="saveButton" type="submit" onClick={saveTicket}>
         Save
       </button>
     </div>

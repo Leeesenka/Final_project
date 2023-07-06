@@ -6,7 +6,7 @@ const ClientAddress = ({ userId }) => {
   useEffect(() => {
     const fetchClientAddress = async () => {
       try {
-        const response = await fetch(`http://127.0.0.1:3030/client_adress/${userId}`);
+        const response = await fetch(`http://127.0.0.1:3030/client_address/${userId}`);
         const data = await response.json();
 
         if (data && data.length > 0 && data[0].address) {
@@ -20,7 +20,7 @@ const ClientAddress = ({ userId }) => {
     fetchClientAddress();
   }, [userId]);
 
-  return <input type="text" value={clientAddress} readOnly />;
+  return <div>{clientAddress}</div>;
 };
 
 export default ClientAddress;

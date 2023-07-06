@@ -3,6 +3,8 @@ import 'bootstrap/dist/css/bootstrap.css';
 import SearchTicket from './SearchTicket';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
+import TicketRow from './TicketRow';
+import './TicketTable.css';
 
 const TicketTable = () => {
   const [tickets, setTickets] = useState([]);
@@ -44,29 +46,27 @@ const TicketTable = () => {
     }
   };
 
-
   const openDescription = (id, name) => {
     window.open(`/description?id=${id}&engineer=${name}`);
   };
 
   return (
     <div className="ticket-table">
-      <div className='filters'>
+      <div className="filters">
         <div className="filter-label">Filter by Client:</div>
-      <SearchTicket tickets={tickets} onFilterTickets={handleFilterTickets} />
-      
+        <SearchTicket tickets={tickets} onFilterTickets={handleFilterTickets} />
+
         <div className="filter-label">Filter by Date:</div>
         <DatePicker
-  selected={selectedDate}
-  onChange={handleDateChange}
-  dateFormat="yyyy-MM-dd"
-  isClearable
-  className="form-control"
-  placeholderText="Select a date"
-/>
-        
+          selected={selectedDate}
+          onChange={handleDateChange}
+          dateFormat="yyyy-MM-dd"
+          isClearable
+          className="form-control"
+          placeholderText="Select a date"
+        />
       </div>
-      <table className="table table-bordered">
+      <table id='table-manager'>
         <thead>
           <tr>
             <th>ID</th>
@@ -83,18 +83,12 @@ const TicketTable = () => {
         </thead>
         <tbody>
           {filteredTickets.map((ticket) => (
-            <tr key={ticket.id} onClick={() => openDescription(ticket.id, ticket.engineer)}>
-              <td>{ticket.id}</td>
-              <td>{ticket.client}</td>
-              <td>{ticket.created_at}</td>
-              <td>{ticket.subject}</td>
-              <td>{ticket.equipment_name}</td>
-              <td>{ticket.criticality_name}</td>
-              <td>{ticket.engineer_name}</td>
-              <td>{ticket.date_of_change}</td>
-              <td>{ticket.start_date}</td>
-              <td>{ticket.completion_date}</td>
-            </tr>
+            <TicketRow
+              ticket={ticket}
+              openDescription={openDescription}
+              key={ticket.id}
+              isCompleted={!!ticket.completion_date}
+            />
           ))}
         </tbody>
       </table>

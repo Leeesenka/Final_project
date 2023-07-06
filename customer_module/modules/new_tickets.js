@@ -35,6 +35,7 @@ const getAllTickets = () => {
       'managerticket.subject',
       'managerticket.equipment_name',
       'managerticket.criticality_name',
+      'managerticket.hours',
       'engineer.name AS engineer_name',
       'engineer.chat_id AS engineer_chat_id',
       'managerticket.completion_date',

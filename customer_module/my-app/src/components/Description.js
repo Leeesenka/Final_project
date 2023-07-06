@@ -3,14 +3,16 @@ import Engineers from './Engineers';
 import ClientAddress from './ClientAddress';
 import SaveTicketButton from './SaveTicketButton';
 import SendTicket from './SendTicket';
-
+import PngItem_623465 from './image/PngItem_623465.png'
 export const TicketContext = createContext(null)
 
 const GetTicketDetails = () => {
   const [ticketData, setTicketData] = useState({});
   const [selectedEngineer, setSelectedEngineer] = useState('');
+  const [engineerDetails, setEngineerDetails] = useState('');
   const [lastUpdated, setLastUpdated] = useState('');
   const [additionalInformation, setAdditionalInformation] = useState('');
+  const [clientAddress, setClientAddress] = useState('');
 
   const handleEngineerChange = (engineerId) => {
     // console.log('zzzzzz',engineerId);
@@ -51,93 +53,77 @@ const GetTicketDetails = () => {
 
   return (
     <div className="manager-ticket">
+      <div className='background-ticket'>
+        <div className='all-forms'>
       <form id="ticketForm">
-        <table class="table">
-          <thead>
-            <tr>
-              <th scope="col">Field</th>
-              <th scope="col">Data</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <th scope="row">ID:</th>
-              <td id="id">{ticketData.id}</td>
-            </tr>
-            <tr>
-              <th scope="row">Subject:</th>
-              <td id="subject">{ticketData.subject}</td>
-            </tr>
-            <tr>
-              <th scope="row">Created At:</th>
-              <td id="created-at">{ticketData.created_at}</td>
-            </tr>
-            <tr>
-              <th scope="row">Client:</th>
-              <td id="client">{ticketData.client}</td>
-            </tr>
-            <tr>
-              <th scope="row">Address:</th>
-              <td id="address">
-                <ClientAddress userId={ticketData.user_id} />
-              </td>
-            </tr>
-            <tr>
-              <th scope="row">Equipment Name:</th>
-              <td id="equipment-name">{ticketData.equipment_name}</td>
-            </tr>
-            <tr>
-              <th scope="row">Serial Number:</th>
-              <td id="serial-number">{ticketData.serial_number}</td>
-            </tr>
-            <tr>
-              <th scope="row">Criticality Name:</th>
-              <td id="criticality-name">{ticketData.criticality_name}</td>
-            </tr>
-            <tr>
-              <th scope="row">Hours:</th>
-              <td id="hours">{ticketData.hours}</td>
-            </tr>
-            <tr>
-              <th scope="row">Description:</th>
-              <td id="description">{ticketData.description}</td>
-            </tr>
-            <tr>
-              <th scope="row">Engineers:</th>
-              <td id="engineers">
-                <TicketContext.Provider value={{setSelectedEngineer,selectedEngineer}}>
+        <div className='form-left'>
+            <div className="mb-3">
+              <label htmlFor="id" className="form-label">ID:</label>
+              <input type="text" className="form-control" id="id" value={ticketData.id} readOnly />
+             </div>
+             <div className="mb-3">
+                <label htmlFor="subject" className="form-label">Client:</label>
+                <input type="text" className="form-control" id="subject" value={ticketData.client} readOnly />
+            </div>
+            <div className="mb-3">
+                <label htmlFor="subject" className="form-label">Subject:</label>
+                <input type="text" className="form-control" id="subject" value={ticketData.subject} readOnly />
+            </div>
+            <div className="mb-3">
+              <label htmlFor="created-at" className="form-label">Created At:</label>
+              <input type="data" className="form-control" id="created-at" value={ticketData.created_at} readOnly />
+            </div>
+           
+            <div className="mb-3">
+              <label htmlFor="address" className="form-label">Address:</label>
+              <ClientAddress userId={ticketData.user_id} />
+            </div>
+            <div className="mb-3">
+                <label htmlFor="subject" className="form-label">Equipment Name:</label>
+                <input type="text" className="form-control" id="equipment-name" value={ticketData.equipment_name} readOnly />
+            </div>
+            </div>
+            <div className='form-right'>
+            <div className="mb-3">
+                <label htmlFor="subject" className="form-label">Serial Number:</label>
+                <input type="text" className="form-control" id="serial-number" value={ticketData.serial_number} readOnly />
+            </div>
+            <div className="mb-3">
+                <label htmlFor="subject" className="form-label">Criticality Name:</label>
+                <input type="text" className="form-control" id="criticality-name" value={ticketData.criticality_name} readOnly />
+            </div>
+            <div className="mb-3">
+                <label htmlFor="subject" className="form-label">Hours:</label>
+                <input type="text" className="form-control" id="hours" value={ticketData.hours} readOnly />
+            </div>
+            <div className="mb-3">
+                <label htmlFor="subject" className="form-label">Description:</label>
+                <input type="text" className="form-control" id="description" value={ticketData.description} readOnly />
+            </div>
+            <div className="mb-3">
+              <label htmlFor="engineers" className="form-label">Engineers:</label>
+              <TicketContext.Provider value={{setSelectedEngineer,selectedEngineer}}>
                   <Engineers
-                    selectedEngineer={selectedEngineer}
-                    onEngineerChange={handleEngineerChange}
+                      selectedEngineer={selectedEngineer}
+                      onEngineerChange={handleEngineerChange}
                   />
-                </TicketContext.Provider>
-              </td>
-            </tr>
-            <tr>
-              <th scope="row">Additional Information:</th>
-              <td id="additional-information">
-                <input
+              </TicketContext.Provider>
+          </div>
+
+          <div className="mb-3">
+              <label htmlFor="additional_information" className="form-label">Additional Information:</label>
+              <input 
+                  type="text" 
+                  className="form-control" 
                   id="additional_information"
-                  className="form-control"
-                  type="text"
                   value={additionalInformation}
                   onChange={(e) => handleAdditionalInformationChange(e.target.value)}
-                />
-              </td>
-            </tr>
-            <tr>
-              <th scope="row">Date of Change:</th>
-              <td id="date-of-change">
-                {lastUpdated ? (
-                  <span>{lastUpdated}</span>
-                ) : (
-                  <span>{ticketData.date_of_change || ''}</span>
-                )}
-              </td>
-            </tr>
-          </tbody>
-        </table>
+              />
+          </div>
+          </div>
+       
       </form>
+      
       <div className='button-save-send'>
       <TicketContext.Provider value={{selectedEngineer}}>
         <SaveTicketButton
@@ -152,7 +138,16 @@ const GetTicketDetails = () => {
         ticketData={ticketData}
         additionalInformation={additionalInformation}
         selectedEngineer={selectedEngineer}
+        engineerDetails={engineerDetails}
+        clientAddress={clientAddress}
+        
       />
+      </div>
+      </div>
+      <div className='girl-right'>
+          <img src={PngItem_623465} alt="Girl's description" />
+
+          </div>
       </div>
     </div>
   );

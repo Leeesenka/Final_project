@@ -3,9 +3,13 @@ const{db} = require('../config/db.js')
 const checkLogin = (username) => {
 	console.log('login-------', username);
 	return db('register')
-	.select('id', 'first_name', 'last_name', 'email', 'username', 'password', 'created_date', 'last_login_date')
-	.where({username})
-}
+	  .select('id', 'first_name', 'last_name', 'email', 'username', 'password', 'created_date', 'last_login_date')
+	  .where({ username })
+	  .then((data) => data) 
+	  .catch((error) => {
+		throw new Error('Error fetching user data');
+	  });
+  };
 const checkLastLogin = () => {
 	return db('login')
 	.select("*")

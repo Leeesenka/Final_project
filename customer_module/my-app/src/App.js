@@ -6,10 +6,13 @@ import TicketDetails from "./components/Description";
 import ClientTable from "./components/ClientTable";
 import NewTicketForm from "./components/NewTicket";
 import Navbar from "./components/Navbar";
+import Register from "./components/Register";
+import Login from "./components/Login";
+import MainPage from "./components/MainPage";
 
 function App() {
   return (
-    <div>
+    <div className="big">
        {/* <ul>
       <li>
         <Link to="/">Home</Link>
@@ -29,6 +32,9 @@ function App() {
       <Route path="/new-ticket" element={<NewTicketForm />} />
       <Route path="/ticket_table" element={<TicketTable />} />
       <Route path="/description" element={<TicketDetails />} />
+      <Route path="/register" element={<Register />} />
+      <Route path="/login" element={<Login />} />
+      <Route path="/main" element={<MainPage />} />
     
     </Routes>
 

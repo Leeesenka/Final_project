@@ -1,29 +1,42 @@
+import React from 'react';
 import { Link } from "react-router-dom";
-
-const Navbar = () => {
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { Button, Container, Form, Navbar, Offcanvas, Nav } from 'react-bootstrap';
+import { faHouse} from '@fortawesome/free-solid-svg-icons'
+const MyNavbar = () => {
   return (
-    <nav className="navbar navbar-expand-lg bg-transparent">
-      <div className="container-fluid">
-        <Link className="navbar-brand" to="/">Home</Link>
-        <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
-          <span className="navbar-toggler-icon"></span>
-        </button>
-        <div className="collapse navbar-collapse" id="navbarTogglerDemo02">
-          <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-            <li className="nav-item">
-              <Link className="nav-link active" aria-current="page" to="/ticket_table">Ticket Table</Link>
-            </li>
-            <li className="nav-item">
-              <Link className="nav-link" to="/client_table">Client Table</Link>
-            </li>
-            <li className="nav-item">
-              <a className="nav-link disabled">Disabled</a>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </nav>
+    <Navbar expand={false} className="bg-transparent">
+      <Container fluid>
+      <Link className="navbar-brand" to="/main">
+      <FontAwesomeIcon id='home-flag' icon={faHouse} />
+  
+        </Link>
+
+        <Navbar.Toggle aria-controls="offcanvasNavbar" />
+        <Navbar.Offcanvas id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel" placement="end">
+          <Offcanvas.Header closeButton>
+            <Offcanvas.Title id="offcanvasNavbarLabel">Menu</Offcanvas.Title>
+          </Offcanvas.Header>
+          <Offcanvas.Body>
+            <Nav className="justify-content-end flex-grow-1 pe-3">
+              <Nav.Link href="/ticket_table">Ticket Table</Nav.Link>
+              <Nav.Link href="/client_table">Client Table</Nav.Link>
+              <Nav.Link href="/">Main</Nav.Link>
+            </Nav>
+            <Form className="d-flex">
+              <Form.Control
+                type="search"
+                placeholder="Search"
+                className="me-2"
+                aria-label="Search"
+              />
+              <Button variant="outline-success">Search</Button>
+            </Form>
+          </Offcanvas.Body>
+        </Navbar.Offcanvas>
+      </Container>
+    </Navbar>
   );
 };
 
-export default Navbar;
+export default MyNavbar;

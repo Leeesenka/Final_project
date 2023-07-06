@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 const EngineerDetails = ({ engineers, selectedEngineer, onEngineerChange }) => {
     const [engineerDetails, setEngineerDetails] = useState(null);
+  console.log('engineers', engineers)
   
     useEffect(() => {
       const selectedEngineerData = engineers.find((engineer) => engineer.name === selectedEngineer);

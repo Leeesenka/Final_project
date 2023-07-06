@@ -88,5 +88,20 @@ margin-right: 150px;
 .diagram {
   display: flex;
   position: relative;
-  flex-direction: column;
+  flex-direction: row;
+  justify-content: center;
+  margin-top: 40px;
+  font-family: "Montserrat", Sans-serif;
+}
+.ticket-summary h2{
+  margin-bottom: 30px;
+
+}
+
+.ticket-summary {
+  margin-left: 40px;
+}
+
+.ticket-chart {
+  margin-right: 100px;
 }

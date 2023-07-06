@@ -1,8 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.css';
+import moment from 'moment';
+
+import { useLocation } from 'react-router-dom';
 
 const ClientTable = () => {
+  const location = useLocation();
+  const searchParams = new URLSearchParams(location.search);
+  const username = searchParams.get('username');
   const [tickets, setTickets] = useState([]);
 
   useEffect(() => {
@@ -11,8 +17,7 @@ const ClientTable = () => {
 
   const getAllTickets = async () => {
     try {
-      const clientName = 'Anna';
-      const response = await fetch(`http://localhost:3030/client_tickets/${clientName}`);
+      const response = await fetch(`http://localhost:3030/client_tickets/${username}`);
       const data = await response.json();
 
       if (data && data.length > 0) {
@@ -33,7 +38,6 @@ const ClientTable = () => {
 
       if (response.ok) {
         console.log('Ticket deleted successfully');
-       
         getAllTickets();
       } else {
         console.error('Error:', response.status);
@@ -44,11 +48,19 @@ const ClientTable = () => {
   };
 
   const createTableRow = (rowData) => {
+    const createdAt = moment(rowData.created_at).utcOffset('+09:00').format('YYYY-MM-DD HH:mm:ss');
     return (
       <tr key={rowData.id}>
-        {Object.values(rowData).map((value, index) => (
-          <td key={index}>{value}</td>
-        ))}
+        <td>{rowData.id}</td>
+        <td>{rowData.client}</td>
+        <td>{createdAt}</td>
+        <td>{rowData.subject}</td>
+        <td>{rowData.equipment_name}</td>
+        <td>{rowData.serial_number}</td>
+        <td>{rowData.criticality_name}</td>
+        <td>{rowData.hours}</td>
+        <td>{rowData.description}</td>
+        <td>{rowData.completion_date}</td>
         <td>
           <button
             className="btn btn-danger btn-sm"

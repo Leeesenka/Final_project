@@ -19,7 +19,7 @@ const SearchTicket = ({ tickets, onFilterTickets }) => {
         onChange={(e) => setClientName(e.target.value)}
        
       />
-      <button  class="btn btn-primary" id='search_client' onClick={handleSearch}>Search</button>
+      <button  id='search_client' onClick={handleSearch}>Search</button>
     </div>
   );
 };

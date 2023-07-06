@@ -46,9 +46,9 @@ const TicketChart = () => {
   const colors = ['#8884d8', '#82ca9d', '#ffc658', '#ff7f0e', '#ff0000'];
 
   return (
-    <div className="ticket-chart" style={{ display: 'flex', justifyContent: 'left', alignItems: 'center', margin: '0px' }}>
-      <div style={{ width: '20%' }}>
-        <h2>Ticket Chart</h2>
+    <div className="ticket-chart" style={{ display: 'flex', justifyContent: 'left', alignItems: 'center', marginRight: '100px' }}>
+      <div className='diagr' style={{ width: '500px' }}>
+        <h2>Total number of customer requests</h2>
         <ResponsiveContainer width="100%" height={500}>
           <PieChart>
             <Pie
@@ -70,7 +70,7 @@ const TicketChart = () => {
       </div>
       <div className="legend">
         {chartData.map((entry, index) => (
-          <div key={`legend-${index}`} style={{ display: 'flex', alignItems: 'center' }}>
+          <div key={`legend-${index}`} style={{ display: 'flex', alignItems: 'center'}} className='111'>
             <span className="legend-color" style={{ backgroundColor: colors[index % colors.length], width: '15px', height: '15px', marginRight: '5px' }}></span>
             <span className="legend-label">{entry.name}</span>
           </div>

@@ -1,28 +1,96 @@
-.main {
+/* .main-new-ticket {
+    background-color:  #F0F8FF;
+    display: flex;
+    position: relative;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    margin: 20px;
+    width: 70%;
+    background: linear-gradient(to right, #FFE4E1, #E0FFFF);
+    box-shadow: 5px 5px 5px 5px rgba(0.2, 0.2, 0.2, 0.2);
+
+} */
+.main-new-ticket {
     background-color: #F0F8FF;
     display: flex;
     position: relative;
-    flex-direction: column;
+    flex-direction: row;
     align-items: center;
-    margin: 20px;
+    justify-content: center;
+    margin: 2vw; /* отступ в % от ширины вьюпорта */
+    width: 70%; /* ширина в % от ширины вьюпорта */
+    background: linear-gradient(to right, #FFE4E1, #E0FFFF);
+    box-shadow: 5px 5px 5px 5px rgba(0.2, 0.2, 0.2, 0.2);
+  }
+  
+@media screen and (max-width: 1780px) {
+    .main-new-ticket {
+        width: 80%;
+    }
+    #new {
+        width: 500px;
+    }
+
+}
+@media screen and (max-width: 1550px) {
+    .main-new-ticket {
+        width: 80%;
+    }
+    #new {
+        width: 400px;
+    }
+
+}
+
+
+.diagram {
+    display: flex;
+    position: relative;
+    flex-direction: row;
+    align-items: start;
+
+}
+
+.all {
+    background-color: #F0F8FF;
+    display: flex;
+    position: relative;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
 
 }
 body{
     background-color: #F0F8FF;
 }
 
-/* #root {
- 
+.fhoto-people {
+    background: transparent;
     display: flex;
     position: relative;
     flex-direction: row;
+    align-items: center;
     justify-content: center;
-    background-color: #F0F8FF;
-} */
+    margin: 2vw; /* отступ в % от ширины вьюпорта */
+    z-index: 3;
+  }
 
 #create-button{
+    color: #fff;
+  
+    border-radius: 4px;
+    border: 0;
+    padding: 28px;
+    line-height: 0;
+    background: #1e81b0;
+    width: 30vw; 
     margin-top: 20px;
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 100px;
 }
+
 
 .serial-number {
     margin-top: 20px;
@@ -40,9 +108,102 @@ body{
     margin-top: 20px;
     margin-bottom: 20px;
     font-size: 19px;
+    
 }
-#username {
-    margin-top: 20px;
-    margin-bottom: 20px;
+#new {
+    width: 30vw; /* ширина в % от ширины вьюпорта */
+    font-family: "Montserrat", Sans-serif;
+  }
+#client-name {
     font-size: 30px;
+    margin-bottom: 30px;
+}
+
+#table-manager {
+    width: 100%;
+}
+
+thead, tr, td, th{
+    border: 1px solid black;
+    border-bottom: 1px solid black;
+    font-size: 13px;
+}
+
+.background-ticket {
+    display: flex;
+    position: relative;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    margin: 20px;
+    width: 70%;
+    background: linear-gradient(to right, #FFE4E1, #E0FFFF);
+   
+    box-shadow: 5px 5px 5px 5px rgba(0, 0, 0, 0.2);
+    
+      
+
+}
+
+#ticketForm {
+    display: flex;
+    position: relative;
+    flex-direction: row;
+    justify-content: center;
+    margin: 50px;
+  
+}
+
+.form-left{
+    width: 700px;
+    margin-right: 70px;
+  
+}
+.form-right{
+    width: 700px;
+}
+
+
+#saveButton, #sendButton {
+    color: #fff;
+  
+    border-radius: 4px;
+    border: 0;
+    padding: 28px;
+    line-height: 0;
+    background: #1e81b0;
+   width: 200px;
+    margin-top: 20px;
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 100px;
+}
+.all-forms {
+    margin-left: 50px;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    position: relative;
+    flex-direction: column;
+
+}
+
+
+#search_client {
+    color: #fff;
+    border-radius: 4px;
+    border: 0;
+    padding: 5px; 
+    line-height: 0;
+    background: #1e81b0;
+    width: 150px;
+    
+    font-size: 18px;
+    font-weight: bold;
+    /* margin-bottom: 100px; */
+    height: 35px;
+}
+.client-name {
+    align-items: center;
+    text-align: center;
 }
