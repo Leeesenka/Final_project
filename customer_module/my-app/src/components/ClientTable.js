@@ -10,6 +10,8 @@ const ClientTable = () => {
   const searchParams = new URLSearchParams(location.search);
   const username = searchParams.get('username');
   const [tickets, setTickets] = useState([]);
+  const [filterComplete, setFilterComplete] = useState(false);
+
 
   useEffect(() => {
     getAllTickets();
@@ -72,10 +74,19 @@ const ClientTable = () => {
       </tr>
     );
   };
-
+  const filteredTickets = filterComplete 
+  ? tickets.filter(ticket => ticket.completion_date) 
+  : tickets;
   return (
     <div className='client-table'>
-      <Link to="/new-ticket" className="btn btn-primary mb-3">New Ticket</Link>
+      <Link to="/new-ticket" className="btn btn-primary mb-3" id='show_completed'>New Ticket</Link>
+      <button 
+    id='show_completed'
+    className={`btn mb-3 ml-3 ${filterComplete ? 'btn-success' : 'btn-secondary'}`}
+    onClick={() => setFilterComplete(!filterComplete)}
+  >
+    {filterComplete ? 'Show All Tickets' : 'Show Completed Tickets'}
+  </button>
       <table id="ticketTable" className="table table-bordered">
         <thead>
           <tr>
@@ -93,7 +104,7 @@ const ClientTable = () => {
           </tr>
         </thead>
         <tbody>
-          {tickets.map((ticket) => (
+          {filteredTickets.map((ticket) => (
             createTableRow(ticket)
           ))}
         </tbody>

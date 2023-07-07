@@ -211,6 +211,10 @@
     margin-top: 100px;
     margin-left: 250px;
     margin-right: 250px;
+    align-items: center;
+    display: flex;
+    position: relative;
+    flex-direction: column;
 
 
 }
@@ -225,14 +229,14 @@
     height: 7px;
     background-color: red;
     border-radius: 3px;
-    margin-left: 360px;
+    /* margin-left: 360px; */
 }
 .line3 {
     width: 90px;
     height: 7px;
     background-color: red;
     border-radius: 3px;
-    margin-left: 400px;
+    /* margin-left: 400px; */
 }
 .line {
     width: 70px;
@@ -283,6 +287,11 @@
 .main6 {
     margin-top: 100px;
     text-align: center;
+    display: flex;
+    position: relative;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 .main6 h1 {
     margin-bottom: 30px;
@@ -391,3 +400,14 @@
     font-size: 18px;
   
 }
+
+#show_completed {
+    margin-right: 20px;
+
+}
+
+/* .buttons {
+    display: flex;
+    position: relative;
+    flex-direction: row;
+} */
