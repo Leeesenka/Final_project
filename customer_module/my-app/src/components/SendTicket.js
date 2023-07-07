@@ -1,18 +1,17 @@
 import React from 'react';
-import { useEffect,useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 const SendTicket = ({ ticketData, additionalInformation, clientAddress, engineerDetails, onEngineerDetailsChange, selectedEngineer }) => {
   const navigate = useNavigate(); 
-   const [engineers, setEngineers] = useState([]);
+  const [engineers, setEngineers] = useState([]);
 
-console.log("address",clientAddress)
-  useEffect(()=>{
+  useEffect(() => {
     const getEngineers = async () => {
       try {
         const response = await fetch('http://localhost:3030/engineers');
         const data = await response.json();
-        console.log('all engineers', data)
+        console.log('all engineers', data);
         if (data && data.length > 0) {
           setEngineers(data);
         }
@@ -20,19 +19,26 @@ console.log("address",clientAddress)
         console.error('Error:', error);
       }
     };
-    getEngineers()
-  },[])
-console.log('engineerDetails', engineerDetails)
+    getEngineers();
+  }, []);
+
+  const getClientAddress = () => {
+    if (ticketData.client === 'Anna') {
+      return '123 Main Street';
+    } else if (ticketData.client === 'Tom') {
+      return '8 HaNesiim';
+    } else {
+      return '';
+    }
+  };
+
   const handleSendData = async () => {
     try {
       const { id, subject, created_at, client, equipment_name, serial_number, criticality_name, hours, description } = ticketData;
       
       let chatId = null;
-      console.log(engineers)
-      console.log(selectedEngineer)
       if (engineers) {
         const engineer = engineers.find((engineer) => engineer.id == selectedEngineer);
-        console.log(engineer)
         chatId = engineer ? engineer.chat_id : null;
       }
 
@@ -41,7 +47,7 @@ console.log('engineerDetails', engineerDetails)
         subject,
         created_at,
         client,
-        address: clientAddress,
+        address: getClientAddress(),
         equipment_name,
         serial_number,
         criticality_name,
