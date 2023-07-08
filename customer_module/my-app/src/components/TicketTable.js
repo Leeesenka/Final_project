@@ -81,6 +81,7 @@ const TicketTable = () => {
             <th>Date of change</th>
             <th>Start date</th>
             <th>Completion date</th>
+           
           </tr>
         </thead>
         <tbody>

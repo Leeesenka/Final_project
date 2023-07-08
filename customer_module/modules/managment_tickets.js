@@ -61,6 +61,7 @@ const updateTicketBot = (id, ticket) => {
       .where({ id })
       .update({
           completion_date,
+          comment
       })
       .returning('*');
 };

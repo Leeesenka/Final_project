@@ -40,7 +40,9 @@ const getAllTickets = () => {
       'engineer.chat_id AS engineer_chat_id',
       'managerticket.completion_date',
       'managerticket.date_of_change',
-      'managerticket.start_date'
+      'managerticket.start_date',
+      'managerticket.comment'
+
     )
     .returning('*')
     .orderBy('managerticket.id');

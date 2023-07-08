@@ -273,6 +273,18 @@
     margin-top: 60px;
     margin-left: 50px;
 }
+@media (min-width: 1400px) {
+    .text-after-girl h1 {
+      font-size: 25px;
+      margin-top: 25px;
+     
+    }
+    .text-after-girl {
+ 
+        
+        margin-right: 240px;
+    }
+  }
 .text-after-girl p {
     margin-left: 50px;
     margin-top: 30px;

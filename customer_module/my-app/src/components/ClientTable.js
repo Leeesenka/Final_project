@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.css';
 import moment from 'moment';
-
-import { useLocation } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 
 const ClientTable = () => {
   const location = useLocation();
@@ -11,8 +10,7 @@ const ClientTable = () => {
   const username = searchParams.get('username');
   const [tickets, setTickets] = useState([]);
   const [filterComplete, setFilterComplete] = useState(false);
-
-
+  const navigate = useNavigate();
   useEffect(() => {
     getAllTickets();
   }, []);
@@ -74,19 +72,20 @@ const ClientTable = () => {
       </tr>
     );
   };
+
   const filteredTickets = filterComplete 
-  ? tickets.filter(ticket => ticket.completion_date) 
-  : tickets;
+    ? tickets.filter(ticket => ticket.completion_date) 
+    : tickets;
+
   return (
     <div className='client-table'>
-      <Link to="/new-ticket" className="btn btn-primary mb-3" id='show_completed'>New Ticket</Link>
-      <button 
-    id='show_completed'
-    className={`btn mb-3 ml-3 ${filterComplete ? 'btn-success' : 'btn-secondary'}`}
-    onClick={() => setFilterComplete(!filterComplete)}
-  >
-    {filterComplete ? 'Show All Tickets' : 'Show Completed Tickets'}
-  </button>
+     <button id='new-ticket' onClick={() => navigate("/new-ticket")}>New Ticket</button>
+      <button id='complicated'
+        className={`complicated ${filterComplete ? 'btn-success' : 'btn-secondary'}`}
+        onClick={() => setFilterComplete(!filterComplete)}
+      >
+        {filterComplete ? 'Show All Tickets' : 'Show Completed Tickets'}
+      </button>
       <table id="ticketTable" className="table table-bordered">
         <thead>
           <tr>
