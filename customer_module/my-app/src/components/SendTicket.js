@@ -23,9 +23,9 @@ const SendTicket = ({ ticketData, additionalInformation, clientAddress, engineer
   }, []);
 
   const getClientAddress = () => {
-    if (ticketData.client === 'Anna') {
+    if (ticketData.client === 'ALD Group') {
       return '123 Main Street';
-    } else if (ticketData.client === 'Tom') {
+    } else if (ticketData.client === 'TLVTech') {
       return '8 HaNesiim';
     } else {
       return '';

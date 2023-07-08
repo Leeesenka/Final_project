@@ -74,7 +74,7 @@ func (h *Handler) HandleNewTicket(w http.ResponseWriter, r *http.Request) {
 		"Hours: " + ticket.Hours + "\n" +
 		"Description: " + ticket.Description + "\n" +
 		"Address: " + ticket.Address + "\n" +
-		"Additional Information: "
+		"Additional Information: " + ticket.AdditionalInformation + "\n"
 
 	msg := tgbotapi.NewMessage(ticket.ChatID, messageText)
 	msg.ReplyMarkup = tgbotapi.NewInlineKeyboardMarkup(

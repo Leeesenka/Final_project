@@ -99,7 +99,10 @@ const TicketSummary = () => {
         <br/>
         Total Tickets: {counts.total}
       </Card.Text>
-      <Button variant="primary" id='summary-but' onClick={() => handleClientClick(client)}>See Tickets</Button>
+      <div class="bigpadding">
+                <button class="wt-btn_sign" onClick={() => handleClientClick(client)}><span class="wt-btn_sign-bound"><span data-width="#fff" data-text="See"> Tickets</span></span></button>
+            </div>
+      {/* <Button variant="primary" id='summary-but' onClick={() => handleClientClick(client)}>See Tickets</Button> */}
     </Card.Body>
   </Card>
 ))}

@@ -5,8 +5,8 @@ import { TicketContext } from './Description';
 const EngineerSelect = ({ engineers, engineer_name, onEngineerChange }) => {
   // const params = useParams()
   const {setSelectedEngineer,selectedEngineer} = useContext(TicketContext)
-  const urlParams = new URLSearchParams(window.location.search);
-  const name = urlParams.get('engineer');
+  // const urlParams = new URLSearchParams(window.location.search);
+  // const name = urlParams.get('engineer');
   // console.log('xxxxxxx',name);
   // selectedEngineer = name
   const handleEngineerChange = (event) => {

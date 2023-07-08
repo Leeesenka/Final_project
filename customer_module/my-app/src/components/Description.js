@@ -1,4 +1,5 @@
-import React, { useEffect, useState, createContext} from 'react';
+import React, { useEffect, useState, createContext, useRef } from 'react';
+
 import Engineers from './Engineers';
 import ClientAddress from './ClientAddress';
 import SaveTicketButton from './SaveTicketButton';
@@ -50,7 +51,9 @@ const GetTicketDetails = () => {
   const handleSaveLastUpdated = (date) => {
     setLastUpdated(date);
   };
-
+  const descriptionRef = useRef(null);
+  const additionalInformationRef = useRef(null);
+  const subjectRef = useRef(null);
   return (
     <div className="manager-ticket">
       <div className='background-ticket'>
@@ -67,7 +70,15 @@ const GetTicketDetails = () => {
             </div>
             <div className="mb-3">
                 <label htmlFor="subject" className="form-label">Subject:</label>
-                <input type="text" className="form-control" id="subject" value={ticketData.subject} readOnly />
+                <textarea
+                  ref={subjectRef}
+                  type="text" 
+                  className="form-control" 
+                  id="subject" 
+                  value={ticketData.subject} 
+                  readOnly 
+                  style={{ height: `${subjectRef.current?.scrollHeight}px` }}
+              />
             </div>
             <div className="mb-3">
               <label htmlFor="created-at" className="form-label">Created At:</label>
@@ -96,10 +107,15 @@ const GetTicketDetails = () => {
                 <label htmlFor="subject" className="form-label">Hours:</label>
                 <input type="text" className="form-control" id="hours" value={ticketData.hours} readOnly />
             </div>
-            <div className="mb-3">
-                <label htmlFor="subject" className="form-label">Description:</label>
-                <input type="text" className="form-control" id="description" value={ticketData.description} readOnly />
-            </div>
+            <label htmlFor="subject" className="form-label">Description:</label>
+            <textarea
+                ref={descriptionRef}
+                className="form-control"
+                id="description"
+                value={ticketData.description}
+                readOnly
+                style={{ height: `${descriptionRef.current?.scrollHeight}px`, resize: "vertical" }}
+            />
             <div className="mb-3">
               <label htmlFor="engineers" className="form-label">Engineers:</label>
               <TicketContext.Provider value={{setSelectedEngineer,selectedEngineer}}>
@@ -112,13 +128,15 @@ const GetTicketDetails = () => {
 
           <div className="mb-3">
               <label htmlFor="additional_information" className="form-label">Additional Information:</label>
-              <input 
-                  type="text" 
-                  className="form-control" 
-                  id="additional_information"
-                  value={additionalInformation}
-                  onChange={(e) => handleAdditionalInformationChange(e.target.value)}
-              />
+              <textarea
+                ref={additionalInformationRef}
+                className="form-control" 
+                id="additional_information"
+                value={additionalInformation}
+                onChange={(e) => handleAdditionalInformationChange(e.target.value)}
+                style={{ height: `${additionalInformationRef.current?.scrollHeight}px`, resize: "vertical" }}
+            />
+
           </div>
           </div>
        

@@ -29,22 +29,24 @@ const NewTicketForm = () => {
 
     let criticalityName;
     let hoursValue;
-    if (criticality === '24 hours') {
+    if (criticality.includes('Low')) {
       criticalityName = 'Low';
       hoursValue = '24 hours';
-    } else if (criticality === '4 hours') {
+    } else if (criticality.includes('High')) {
       criticalityName = 'High';
       hoursValue = '4 hours';
     } else {
       criticalityName = 'Medium';
       hoursValue = '8 hours';
     }
+    
+    
 
     // Assign user_id based on the client value
     let userId;
-    if (client === 'Anna') {
+    if (client === 'ALD Group') {
       userId = 28;
-    } else if (client === 'Tom') {
+    } else if (client === 'TLVTech') {
       userId = 25;
     } else {
       userId = null; // Handle other client values as needed

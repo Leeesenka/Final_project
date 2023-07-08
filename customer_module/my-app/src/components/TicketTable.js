@@ -48,7 +48,7 @@ const TicketTable = () => {
   };
 
   const openDescription = (id, name) => {
-    window.open(`/description?id=${id}&engineer=${name}`);
+    window.open(`/description?id=${id}&engineer_id=${name}`);
   };
 
   return (
