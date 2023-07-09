@@ -1,5 +1,5 @@
 import React, { useEffect, useState, createContext, useRef } from 'react';
-
+import moment from 'moment';
 import Engineers from './Engineers';
 import ClientAddress from './ClientAddress';
 import SaveTicketButton from './SaveTicketButton';
@@ -82,8 +82,9 @@ const GetTicketDetails = () => {
             </div>
             <div className="mb-3">
               <label htmlFor="created-at" className="form-label">Created At:</label>
-              <input type="data" className="form-control" id="created-at" value={ticketData.created_at} readOnly />
+              <input type="data" className="form-control" id="created-at" value={moment(ticketData.created_at).add(3, 'hours').format('MMMM Do YYYY, h:mm:ss a')} readOnly />
             </div>
+
            
             <div className="mb-3">
               <label htmlFor="address" className="form-label">Address:</label>

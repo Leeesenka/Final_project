@@ -41,7 +41,7 @@ const getAllTickets = () => {
       'managerticket.completion_date',
       'managerticket.date_of_change',
       'managerticket.start_date',
-      'managerticket.comment'
+     
 
     )
     .returning('*')

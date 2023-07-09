@@ -10,6 +10,7 @@ const ClientTable = () => {
   const username = searchParams.get('username');
   const [tickets, setTickets] = useState([]);
   const [filterComplete, setFilterComplete] = useState(false);
+  
   const navigate = useNavigate();
   useEffect(() => {
     getAllTickets();
@@ -48,7 +49,9 @@ const ClientTable = () => {
   };
 
   const createTableRow = (rowData) => {
-    const createdAt = moment(rowData.created_at).utcOffset('+09:00').format('YYYY-MM-DD HH:mm:ss');
+    // const createdAt = moment(rowData.created_at).utcOffset('+09:00').format('YYYY-MM-DD HH:mm:ss');
+    const createdAt = moment(rowData.created_at).add(3, 'hours').format('YYYY-MM-DD HH:mm');
+    const completionDate = rowData.completion_date ? moment(rowData.completion_date).format('DD MMMM YYYY, HH:mm') : '';
     return (
       <tr key={rowData.id}>
         <td>{rowData.id}</td>
@@ -60,7 +63,7 @@ const ClientTable = () => {
         <td>{rowData.criticality_name}</td>
         <td>{rowData.hours}</td>
         <td>{rowData.description}</td>
-        <td>{rowData.completion_date}</td>
+        <td>{completionDate}</td>
         <td>
           <button
             className="btn btn-danger btn-sm"
