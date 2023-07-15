@@ -1,14 +1,20 @@
 package main
 
 import (
+	"engineerbot/bot"
+	"engineerbot/ticket"
+	"errors"
 	"log"
 	"net/http"
-	"engineerbot/ticket"
-	"engineerbot/bot"
+	"os"
 )
 
 func main() {
-	myBot, err := bot.NewBot("5616686460:AAEfCgQK5aPRkS_oOy4yeC8x_buZ807t5gM")
+	tlgChatBot := os.Getenv("tlg_chat_bot")
+	if tlgChatBot == "" {
+		log.Panic(errors.New("TLG Key not set"))
+	}
+	myBot, err := bot.NewBot(tlgChatBot)
 	if err != nil {
 		log.Panic(err)
 	}

@@ -3,9 +3,11 @@ package ticket
 import (
 	"encoding/json"
 	"engineerbot/bot"
+	"errors"
 	"io"
 	"log"
 	"net/http"
+	"os"
 	"strconv"
 	"time"
 
@@ -38,9 +40,12 @@ func NewHandler(bot *bot.Bot) *Handler {
 }
 
 func (h *Handler) HandleNewTicket(w http.ResponseWriter, r *http.Request) {
-
+	extAPI := os.Getenv("EXT_API")
+	if extAPI == "" {
+		log.Panic(errors.New("External API URL is not set"))
+	}
 	// Set CORS headers
-    w.Header().Set("Access-Control-Allow-Origin", "http://localhost:3000")
+    w.Header().Set("Access-Control-Allow-Origin", extAPI)
 	w.Header().Set("Access-Control-Allow-Methods", "POST")
 	w.Header().Set("Access-Control-Allow-Headers", "Content-Type")
 

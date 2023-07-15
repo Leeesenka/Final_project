@@ -3,8 +3,10 @@ package bot
 import (
 	"bytes"
 	"encoding/json"
+	"errors"
 	"log"
 	"net/http"
+	"os"
 	"strings"
 	"time"
 
@@ -38,6 +40,10 @@ func NewBot(token string) (*Bot, error) {
 }
 
 func (b *Bot) startUpdatesLoop() {
+	extAPI := os.Getenv("EXT_API")
+	if extAPI == "" {
+		log.Panic(errors.New("External API URL is not set"))
+	}
 	u := tgbotapi.NewUpdate(0)
 	u.Timeout = 60
 
@@ -65,7 +71,7 @@ func (b *Bot) startUpdatesLoop() {
 					log.Panic(err)
 				}
 				log.Println("Starting sending request")
-				req, err := http.NewRequest("PUT", "http://localhost:3030/update_start_date/"+ticketID, bytes.NewBuffer(jsonData))
+				req, err := http.NewRequest("PUT", extAPI + "/update_start_date/"+ticketID, bytes.NewBuffer(jsonData))
 				if err != nil {
 					log.Panic(err)
 				}
@@ -111,7 +117,7 @@ func (b *Bot) startUpdatesLoop() {
 					log.Panic(err)
 				}
 				log.Println("Starting sending request")
-				req, err := http.NewRequest("PUT", "http://localhost:3030/update_completion_date/"+ticketID, bytes.NewBuffer(jsonData))
+				req, err := http.NewRequest("PUT", extAPI+"/update_completion_date/"+ticketID, bytes.NewBuffer(jsonData))
 				if err != nil {
 					log.Panic(err)
 				}
@@ -156,7 +162,7 @@ func (b *Bot) startUpdatesLoop() {
 			}
 
 			log.Println("Starting sending request")
-				req, err := http.NewRequest("PUT", "http://localhost:3030/update_completion_date/"+ticketID, bytes.NewBuffer(jsonData))
+				req, err := http.NewRequest("PUT", extAPI+"/update_completion_date/"+ticketID, bytes.NewBuffer(jsonData))
 				if err != nil {
 					log.Panic(err)
 				}
