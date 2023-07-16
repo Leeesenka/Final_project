@@ -4,6 +4,7 @@ import Login from './Login';
 import fsm from './image/fsm.png'; 
 import Register from './Register';
 import logo from './image/—Pngtree—3d logo design vector cdr_5883019.png'
+import girl from './image/contact-center.webp'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSuitcase, faMoneyCheckDollar, faScroll, faStar, faMobileScreenButton, faPeopleArrows} from '@fortawesome/free-solid-svg-icons'
@@ -119,7 +120,7 @@ const MainPage = () => {
       <div className='main5'>
         <div className='blue'>
         <div className='photo-girl'>
-          <img src='https://www.globalresponse.com/wp-content/uploads/elementor/thumbs/contact-center-solution-q8k8xuhj5eys690ma4meydv6fnkkcg0rzameeh28mk.jpg'></img>
+          <img src={girl}></img>
         </div>
         <div className='text-after-girl'>
           <h1>A contact center solution for better business performance</h1>
