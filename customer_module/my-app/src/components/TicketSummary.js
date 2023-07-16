@@ -3,7 +3,7 @@ import ListGroup from 'react-bootstrap/ListGroup';
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
 
-
+const BASE_URL = process.env.REACT_APP_BASE_URL
 const TicketSummary = () => {
   const [tickets, setTickets] = useState([]);
   const [selectedClient, setSelectedClient] = useState(null);
@@ -14,7 +14,7 @@ const TicketSummary = () => {
 
   const getAllTickets = async () => {
     try {
-      const response = await fetch('http://localhost:3030/all_tickets');
+      const response = await fetch(BASE_URL+'/all_tickets');
       const data = await response.json();
 
       if (data && data.length > 0) {

@@ -1,7 +1,7 @@
 import React from 'react';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-
+const BASE_URL = process.env.REACT_APP_BASE_URL
 const SendTicket = ({ ticketData, additionalInformation, clientAddress, engineerDetails, onEngineerDetailsChange, selectedEngineer }) => {
   const navigate = useNavigate(); 
   const [engineers, setEngineers] = useState([]);
@@ -9,7 +9,7 @@ const SendTicket = ({ ticketData, additionalInformation, clientAddress, engineer
   useEffect(() => {
     const getEngineers = async () => {
       try {
-        const response = await fetch('http://localhost:3030/engineers');
+        const response = await fetch(BASE_URL+'/engineers');
         const data = await response.json();
         console.log('all engineers', data);
         if (data && data.length > 0) {

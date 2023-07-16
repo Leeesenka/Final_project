@@ -6,7 +6,7 @@ const Register = () => {
   const [email, setEmail] = useState('');
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-
+  const BASE_URL = process.env.REACT_APP_BASE_URL
   const handleRegister = () => {
     const userData = {
     first_name,
@@ -16,7 +16,7 @@ const Register = () => {
     password,
     };
 
-    fetch('http://localhost:3030/profiles', {
+    fetch(BASE_URL+'/profiles', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

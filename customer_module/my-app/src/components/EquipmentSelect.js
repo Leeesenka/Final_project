@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.css';
-
+const BASE_URL = process.env.REACT_APP_BASE_URL
 const EquipmentSelect = ({ value, onChange, onSerialNumberChange }) => {
   const [equipmentList, setEquipmentList] = useState([]);
 
@@ -10,7 +10,7 @@ const EquipmentSelect = ({ value, onChange, onSerialNumberChange }) => {
 
   const getEquipmentList = async () => {
     try {
-      const response = await fetch('http://localhost:3030/equipment');
+      const response = await fetch(`${BASE_URL}/equipment`);
       const data = await response.json();
 
       if (data && data.length > 0) {

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
-
+const BASE_URL = process.env.REACT_APP_BASE_URL
 const LastUsername = ({ onUsernameChange }) => {
   const [lastUsername, setLastUsername] = useState('');
 
@@ -10,7 +10,7 @@ const LastUsername = ({ onUsernameChange }) => {
 
   const getLastUsername = async () => {
     try {
-      const response = await fetch('http://localhost:3030/last_login');
+      const response = await fetch(BASE_URL+'/last_login');
       const data = await response.json();
 
       if (data.username) {

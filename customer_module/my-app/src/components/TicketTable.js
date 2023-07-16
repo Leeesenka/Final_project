@@ -6,7 +6,7 @@ import 'react-datepicker/dist/react-datepicker.css';
 import TicketRow from './TicketRow';
 // import EngineerLoad from './EngineerLoad';
 import './TicketTable.css';
-
+const BASE_URL = process.env.REACT_APP_BASE_URL
 const TicketTable = () => {
   const [tickets, setTickets] = useState([]);
   const [filteredTickets, setFilteredTickets] = useState([]);
@@ -18,7 +18,7 @@ const TicketTable = () => {
 
   const getAllTickets = async () => {
     try {
-      const response = await fetch('http://localhost:3030/all_tickets');
+      const response = await fetch(BASE_URL+'/all_tickets');
       const data = await response.json();
 
       if (data && data.length > 0) {

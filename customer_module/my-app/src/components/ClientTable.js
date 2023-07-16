@@ -3,7 +3,7 @@ import { Link, useLocation } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.css';
 import moment from 'moment';
 import { useNavigate } from "react-router-dom";
-
+const BASE_URL = process.env.REACT_APP_BASE_URL
 const ClientTable = () => {
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
@@ -18,7 +18,7 @@ const ClientTable = () => {
 
   const getAllTickets = async () => {
     try {
-      const response = await fetch(`http://localhost:3030/client_tickets/${username}`);
+      const response = await fetch(`${BASE_URL}/client_tickets/${username}`);
       const data = await response.json();
 
       if (data && data.length > 0) {
@@ -33,7 +33,7 @@ const ClientTable = () => {
 
   const deleteTicket = async (ticketId) => {
     try {
-      const response = await fetch(`http://localhost:3030/all_tickets/${ticketId}`, {
+      const response = await fetch(`${BASE_URL}/all_tickets/${ticketId}`, {
         method: 'DELETE',
       });
 

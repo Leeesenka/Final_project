@@ -7,7 +7,7 @@ import CriticalitySelect from './CriticalitySelect';
 import LastUsername from './LastUsername';
 import SerialNumberSelect from './SerialNumberSelect';
 import './NewTicket.css';
-
+const BASE_URL = process.env.REACT_APP_BASE_URL
 const NewTicketForm = () => {
   const [client, setClient] = useState('');
   const [subject, setSubject] = useState('');
@@ -65,7 +65,7 @@ const NewTicketForm = () => {
     console.log('Data to be sent:', data);
 
     try {
-      const response = await fetch('http://localhost:3030/newticket', {
+      const response = await fetch(BASE_URL +'/newticket', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'

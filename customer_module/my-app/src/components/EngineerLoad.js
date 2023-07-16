@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import Plot from 'react-plotly.js';
-
+const BASE_URL = process.env.REACT_APP_BASE_URL
 const EngineerLoad = () => {
   const [engineers, setEngineers] = useState([]);
   const [tickets, setTickets] = useState([]);
@@ -15,7 +15,7 @@ const EngineerLoad = () => {
 
   const getEngineers = async () => {
     try {
-      const response = await fetch('http://localhost:3030/engineers');
+      const response = await fetch(`${BASE_URL}/engineers`);
       const data = await response.json();
       console.log('all engineers', data)
       if (data && data.length > 0) {
@@ -28,7 +28,7 @@ const EngineerLoad = () => {
 
   const getAllTickets = async () => {
     try {
-      const response = await fetch('http://localhost:3030/all_tickets');
+      const response = await fetch(`${BASE_URL}/all_tickets`);
       const data = await response.json();
 
       if (data && data.length > 0) {

@@ -6,7 +6,7 @@ import SaveTicketButton from './SaveTicketButton';
 import SendTicket from './SendTicket';
 import PngItem_623465 from './image/PngItem_623465.png'
 export const TicketContext = createContext(null)
-
+const BASE_URL = process.env.REACT_APP_BASE_URL
 const GetTicketDetails = () => {
   const [ticketData, setTicketData] = useState({});
   const [selectedEngineer, setSelectedEngineer] = useState('');
@@ -32,7 +32,7 @@ const GetTicketDetails = () => {
         
 
         if (ticketId) {
-          const response = await fetch(`http://127.0.0.1:3030/all_tickets/${ticketId}`);
+          const response = await fetch(`${BASE_URL}/all_tickets/${ticketId}`);
           const data = await response.json();
 
           if (data && data.length > 0) {

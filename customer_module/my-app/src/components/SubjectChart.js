@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { BarChart, Bar, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
-
+const BASE_URL = process.env.REACT_APP_BASE_URL
 const SubjectChart = () => {
   const [tickets, setTickets] = useState([]);
 
@@ -20,7 +20,7 @@ const SubjectChart = () => {
 
   const getAllTickets = async () => {
     try {
-      const response = await fetch('http://localhost:3030/all_tickets');
+      const response = await fetch(BASE_URL+'/all_tickets');
       const data = await response.json();
 
       if (data && data.length > 0) {

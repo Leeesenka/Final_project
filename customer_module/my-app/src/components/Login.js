@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.css';
-
+const BASE_URL = process.env.REACT_APP_BASE_URL
 const Login = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -18,7 +18,7 @@ const Login = () => {
     const queryParams = new URLSearchParams();
     queryParams.append('username', username);
   
-    fetch(`http://localhost:3030/login?${queryParams}`, {
+    fetch(`${BASE_URL}/login?${queryParams}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

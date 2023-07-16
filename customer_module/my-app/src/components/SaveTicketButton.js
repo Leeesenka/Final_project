@@ -2,6 +2,7 @@
 import React, {useContext} from 'react';
 import 'bootstrap/dist/css/bootstrap.css';
 import { TicketContext } from './Description';
+const BASE_URL = process.env.REACT_APP_BASE_URL
 const SaveTicketButton = ({ 
   ticketData, 
   additionalInformation, 
@@ -33,7 +34,7 @@ const SaveTicketButton = ({
 
       console.log(updatedTicketData.engineer_id);
 
-      const response = await fetch(`http://localhost:3030/saveticket/${ticketData.id}`, {
+      const response = await fetch(`${BASE_URL}/saveticket/${ticketData.id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',

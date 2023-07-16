@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.css';
-
+const BASE_URL = process.env.REACT_APP_BASE_URL
 const SubjectSelect = ({ value, onChange }) => {
   const [subjects, setSubjects] = useState([]);
 
@@ -10,7 +10,7 @@ const SubjectSelect = ({ value, onChange }) => {
 
   const getSubjects = async () => {
     try {
-      const response = await fetch('http://localhost:3030/subject');
+      const response = await fetch(BASE_URL+'/subject');
       const data = await response.json();
 
       if (data && data.length > 0) {

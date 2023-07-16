@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
-
+const BASE_URL = process.env.REACT_APP_BASE_URL
 const SerialNumberSelect = ({ equipment, onSerialNumberChange }) => {
   const [serialNumber, setSerialNumber] = useState('');
 
@@ -15,7 +15,7 @@ const SerialNumberSelect = ({ equipment, onSerialNumberChange }) => {
 
   const fetchEquipment = async () => {
     try {
-      const response = await fetch('http://localhost:3030/equipment');
+      const response = await fetch(BASE_URL+'/equipment');
       const data = await response.json();
 
       const selectedEquipment = data.find(item => item.name === equipment);
