@@ -27,14 +27,14 @@ function App() {
     </ul> */}
     <Navbar />
     <Routes>
-      <Route path="/" element={<Home />} />
+      <Route path="/" element={<MainPage />} />
       <Route path="/client_table" element={<ClientTable />} />
       <Route path="/new-ticket" element={<NewTicketForm />} />
       <Route path="/ticket_table" element={<TicketTable />} />
       <Route path="/description" element={<TicketDetails />} />
       <Route path="/register" element={<Register />} />
       <Route path="/login" element={<Login />} />
-      <Route path="/main" element={<MainPage />} />
+      <Route path="/main" element={<Home />} />
     </Routes>
 
 
