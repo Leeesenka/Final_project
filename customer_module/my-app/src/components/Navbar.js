@@ -7,7 +7,7 @@ const MyNavbar = () => {
   return (
     <Navbar expand={false} className="bg-transparent">
       <Container fluid>
-      <Link className="navbar-brand" to="/main">
+      <Link className="navbar-brand" to="/">
       <FontAwesomeIcon id='home-flag' icon={faHouse} />
   
         </Link>
@@ -21,7 +21,7 @@ const MyNavbar = () => {
             <Nav className="justify-content-end flex-grow-1 pe-3">
               <Nav.Link href="/ticket_table">Ticket Table</Nav.Link>
               <Nav.Link href="/client_table">Client Table</Nav.Link>
-              <Nav.Link href="/">Main</Nav.Link>
+              <Nav.Link href="/main">Main</Nav.Link>
             </Nav>
             <Form className="d-flex">
               <Form.Control
